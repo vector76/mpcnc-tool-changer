@@ -87,7 +87,8 @@ module dw660_assembly() {
   translate([-102.5, -102.5, -14])
   import("../imported/MPCNC DW660 Mount/660_Low_Mount_V1.STL");
 
-  translate([-102.5, -134.423, 0])
+  rotate([0, 180, 0])
+  translate([-102.5, -134.423, -14])
   import("../imported/MPCNC DW660 Mount/660_Low_Lock_V1.STL");
 }
 
