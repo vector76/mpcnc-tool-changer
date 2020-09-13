@@ -6,7 +6,7 @@ bearing_od = 22;
 bearing_w = 7;
 spool_motor_dist = 80.0556;  // mm from center of wheel to center of motor gears
 motor_ang = 15;
-part = "carousel_plate";
+part = "";
 
 if (part == "corner_post") {
   corner_post();
@@ -16,7 +16,7 @@ if (part == "") {
   translate([0, 0, -41 - 2])
   rotate([-90, 0, 0])
   translate([0, 0, -30])
-  import("carousel_corner_post.stl");
+  import("../STLs/carousel_corner_post.stl");
   
   % cylinder(d=25.4, h=tube_len);
   
@@ -262,6 +262,7 @@ module cap_bearing_struts() {
 
 module carousel_plate() {
   plate_r = 200;
+  inner_hole = 40;
   motor_size = 44;
   
   // spool size is radius of 74.2333
@@ -273,7 +274,7 @@ module carousel_plate() {
       difference() {
         circle(r=plate_r, $fn=120);
         
-        circle(d=30);
+        circle(d=inner_hole);
         
         *rotate([0, 0, 45])
         translate([0, -15])
@@ -285,7 +286,7 @@ module carousel_plate() {
       // now inner disc with hole
       difference() {
         circle(r=75, $fn=60);
-        circle(d=30);
+        circle(d=inner_hole);
       }
     }
     
