@@ -1,35 +1,6 @@
-/*
-for (i=[0,1]) rotate([0, 0, i*180])
-translate([-100, -93.797, 0])  // centered between Z rails
-// translate([-100, -69.6224, 0])  // this is concentric on Z lead screw
-if (i) { %import("../3rd_party/MPCNC Primo 25.4/Core 19 90_simplified.STL");
-} else { import("../3rd_party/MPCNC Primo 25.4/Core 19 90_simplified.STL"); }
-*/
-
-// overall height is 140
-// bearing holes are at 15 and 125
-
-// space between holes is 110
-// therefor third set of holes would be at 235
-// simplest option (not a good one) would be truncating the core by 30 mm off the bottom
-
-*for (i=[0]) mirror([i, 0, 0])
-//  translate([35.73, 0, 0])
-if (i) { 
-translate([-100, -93.797, -30])  // centered between Z rails
-import("../3rd_party/MPCNC Primo 25.4/Core 19 90_simplified.STL");
-} else { 
-%translate([-100, -93.797, -30])  // centered between Z rails
-import("../3rd_party/MPCNC Primo 25.4/Core 19 90_simplified.STL");
-}
-
-
-//bottomslice();
-//topslice();
-
 short = 0;
-
 core_addon(short);
+
 
 module core_addon(short = 0) {
   height = short ? 20 : 110;
@@ -176,39 +147,4 @@ module builtin_washer(holesize=0) {
       cylinder(d=holesize, h=3, $fn=36);
     }
   }
-}
-
-
-module bottomslice() {
-  projection(cut=true)
-  translate([-100, -93.797, -0.5])
-  import("../3rd_party/MPCNC Primo 25.4/Core 19 90_simplified.STL");
-}
-
-module topslice() {
-  union() {
-    topslice1();
-    topslice2();
-  }
-}
-
-module topslice1() {
-  projection(cut=true)
-  translate([-100, -93.797, -139.5])
-  import("../3rd_party/MPCNC Primo 25.4/Core 19 90_simplified.STL");
-}
-
-module topslice2() {
-  projection(cut=true)
-  translate([-100, -93.797, -117.1])
-  import("../3rd_party/MPCNC Primo 25.4/Core 19 90_simplified.STL");
-}
-
-module addon() {
-difference() {
-  translate([-100, -93.797, 0])
-  import("../3rd_party/MPCNC Primo 25.4/Core 19 90_simplified.STL");
-  translate([0, 0, -1])
-  cylinder(d=300, h=101);
-}
 }
