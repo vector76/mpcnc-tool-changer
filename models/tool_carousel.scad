@@ -5,7 +5,7 @@ plate_thickness = 12;
 bearing_od = 22;
 bearing_w = 7;
 spool_motor_dist = 80.0556;  // mm from center of wheel to center of motor gears
-motor_ang = 15;
+motor_ang = 90-15;
 part = "";
 
 if (part == "corner_post") {
@@ -26,7 +26,7 @@ if (part == "") {
   for (a=[0, 120, 240])
   rotate([0, 0, -15+a])
   translate([-(25.4+22)/2, 0, plate_thickness])
-  rotate([0, 0, 45]) {
+  rotate([0, 0, -45]) {
     base_roller();
     translate([0, 0, 5+7])
     base_roller_cap(1);
@@ -63,7 +63,9 @@ module motor_rigid_mount() {
   
   rotate([0, 0, motor_ang])
   translate([spool_motor_dist, 0, plate_thickness])
-  rotate([0, 0, -motor_ang]) {
+  rotate([0, 0, -motor_ang]) 
+  mirror([1, -1, 0])
+  {
     // motor visual
     translate([-motor_size/2, -motor_size/2, -plate_thickness])
     %cube([motor_size, motor_size, motor_len]);
@@ -241,7 +243,7 @@ module cap_bearing_struts() {
     }
   }
   
-  for (a=[0, 120, 240]) rotate([0, 0, a-15])
+  for (a=[0, 120, 240]) rotate([0, 0, a-20])
   translate([tube_inner_radius, -strut_w/2, plate_thickness]) {
     hull() {
       cube([arm_len-tube_inner_radius, strut_w, 1]);
